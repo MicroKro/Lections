@@ -1,10 +1,7 @@
-package Lesson26.Tests;
+package Lesson26;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,19 +10,26 @@ import java.time.Duration;
 
 public class SelfClosingAlertTest {
 
-    private WebDriver driver;
+    static WebDriver driver;
     private static final String URL = "https://ng-bootstrap.github.io/#/components/alert/examples";
     private static final By BUTTON = By.xpath("//button[contains(text(), 'Change message')]");
     private static final By MESSAGE = By.xpath("//mgb-alert[contains(text(), 'Message successfully change')]");
-    WebDriverWait elementWait;
+    static WebDriverWait elementWait;
 
 
-    @Before
-    public void setup() {
+    @BeforeAll
+    public static void setup() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.get(URL);
         elementWait = new WebDriverWait(driver, Duration.ofSeconds(7));
+    }
+
+    @AfterAll
+    public static void tearDown(){
+        if (driver !=null) {
+            driver.quit();
+        }
     }
 
     @Test
@@ -42,7 +46,7 @@ public class SelfClosingAlertTest {
         getElenent(BUTTON).click();
         String messageAfter = getElenent(MESSAGE).getText();
 
-        Assert.assertNotEquals(messageBefore, messageAfter, "Message sre equals");
+        Assertions.assertNotEquals(messageBefore, messageAfter, "Message sre equals");
 
     }
 
@@ -55,11 +59,4 @@ public class SelfClosingAlertTest {
 //        return new WebDriverWait(driver, 10)
 //                   .until(ExpectedConditions.invisibilityOf(webElement));
 //    }
-
-    @After
-    public void tearDown (){
-        if (driver !=null) {
-            driver.quit();
-        }
-    }
 }
