@@ -4,8 +4,6 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -28,7 +26,7 @@ public class FirstTest {
 
     @ParameterizedTest
     @ValueSource(ints = {1,2,3})
-    void test1(int arguments) {
+     void test1(int arguments) {
         logger.info("тест1 с параметром " + arguments);
         driver.get("https://otus.ru/");
         assertSame (arguments, 2);
